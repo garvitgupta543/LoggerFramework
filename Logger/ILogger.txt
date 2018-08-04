@@ -1,0 +1,6 @@
+public interface ILogger{
+    void LogMessage(string message,Dictionary<string,string> properties,Level loglevel);
+    void LogInformation(string message,Dictionary<string,string> properties);
+    void LogWarning(string message,Dictionary<string,string> properties);
+    void LogException(string message,Dictionary<string,string> properties);
+}

@@ -1,0 +1,9 @@
+config file
+
+<ConnectionsString>
+
+</ConnectionsString>
+
+<AppSettings>
+<app key = "LogFilePath" value = "C:\File.txt">
+</AppSettings>

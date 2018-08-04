@@ -1,0 +1,52 @@
+public class DbLogger implements ILogger{
+    private static SqlCommand sqlCommand;
+    public void DbLogger()
+    {
+
+    }
+    public void LogMessage(string message,Dictionary<string,string> properties,Level loglevel){
+        switch(loglevel){
+            case Levels.Information : LogInformation(message,properties);
+            break;
+            case Levels.Warning : LogWarning(message,properties);
+            break;
+            case Levels.Exception : LogException(message,properties);
+            default : LogInformation(message,properties);
+        }
+    }
+    public void LogInformation(string message,Dictionary<string,string> properties){
+        SqlCommand sqlCmd = GetSqlCommand();
+        if(sqlCmd.Connnection == Connection.Break)
+        sqlCmd.Connection.Open();
+
+
+    }
+    public void LogWarning(string message,Dictionary<string,string> properties){
+
+    }
+    public void LogException(string message,Dictionary<string,string> properties){
+
+    }
+    private void GetSqlCommand()
+    {
+        if(sqlCommand == null)
+        {
+            lock(sqlLock)
+            {
+                if(sqlCommand == null)
+                {
+                    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionsStrings[LogDB]);
+                    sqlCommand = new SqlCommand();
+                    sqlCommand.Connection = con;
+                    sqlCommand.Connection.Open(); 
+                }
+            }
+        }
+        return sqlCommand;
+    }
+    private void GetSqlConnection()
+    {
+
+    }
+
+}

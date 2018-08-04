@@ -1,0 +1,46 @@
+public class FileLogger implements ILogger{
+    private static readonly object lockobject = new object();
+    string filepath;
+    public FileLogger()
+    {
+        filepath = ConfigurationManager.AppSettings("LogFilePath");
+    }
+    public FileLogger(string fpath)
+    {
+        this.filepath = fpath;
+    }
+
+
+    public void LogMessage(string message,Dictionary<string,string> properties,Level loglevel){
+        switch(loglevel){
+            case Levels.Information : LogInformation(message,properties);
+            break;
+            case Levels.Warning : LogWarning(message,properties);
+            break;
+            case Levels.Exception : LogException(message,properties);
+            default : LogInformation(message,properties);
+        }
+
+    }
+    public void LogInformation(string message,Dictionary<string,string> properties){
+        StringBuilder sb = new StringBuilder();
+        sb.Append("Information : ");
+        sb.AppendLine(message);
+        
+        foreach(var property in properties)
+        {
+            sb.AppendLine(property.Key + ":" + property.Value);
+        }
+        lock(lockobject)
+        {
+            File.Append(sb.ToString());
+        }
+
+    }
+    public void LogWarning(string message,Dictionary<string,string> properties){
+
+    }
+    public void LogException(string message,Dictionary<string,string> properties){
+
+    }
+}

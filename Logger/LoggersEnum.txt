@@ -1,0 +1,5 @@
+public enum Loggers{
+    FileLogger = 1,
+    DbLogger = 2,
+    S3Logger = 3
+}

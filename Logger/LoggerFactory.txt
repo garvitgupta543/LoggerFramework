@@ -1,0 +1,14 @@
+public static class LoggerFactory
+{
+    public ILogger GetLoggerInstance(Loggers loggertype)
+    {
+        switch(loggertype)
+        {
+            case Loggers.FileLogger : return new FileLogger();
+            case Loggers.DbLogger: return new DbLogger();
+            case Loggers.S3Logger: return new S3Logger();
+        }
+    }
+
+
+}

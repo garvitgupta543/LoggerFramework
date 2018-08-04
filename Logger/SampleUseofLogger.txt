@@ -1,0 +1,12 @@
+public class SomeClass{
+    private ILogger _logger;
+
+    public SomeClass([Dependency(nameof(FileLogger))] logger)
+    {
+        logger = _logger;
+    }
+
+    public void Function(){
+        _logger = LoggerFactory.GetLogger(Loggers.FileLogger);
+    }
+}
